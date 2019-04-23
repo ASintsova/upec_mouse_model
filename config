@@ -1,0 +1,18 @@
+[base]
+bin=/Users/annasintsova/git_repos/mouse_model
+
+
+[data]
+gff_dir=/Users/annasintsova/git_repos/upec_mouse_model/private_data/gff_files
+gbf_dir=/Users/annasintsova/git_repos/upec_mouse_model/private_data/gbf_files
+mouse_counts_dir=/Users/annasintsova/git_repos/upec_mouse_model/data/mouse_counts
+patient_counts=/Users/annasintsova/git_repos/upec_mouse_model/data/patient_data/raw
+pangenome=/Users/annasintsova/git_repos/upec_mouse_model/data/pangenome_analysis/pangenome_OMCL.csv
+ref_genomes=CFT073 536 F11 K-12 UMN026 UTI89
+b1_strains = HM03 HM07 HM14
+b2_strains = HM56 HM43 HM54 HM86 HM06 HM68 HM57 HM66 HM17 HM60
+functional_groups_file = /Users/annasintsova/git_repos/upec_mouse_model/data/genes_and_functions_edited.csv
+
+
+[test]
+bla=bla
