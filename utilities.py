@@ -96,7 +96,8 @@ def normalize_counts_to_tpm(counts_dir, gff_dir, out_dir, feat='CDS', id_sym='ge
     count_files = [os.path.join(counts_dir, f) for f in os.listdir(counts_dir)]
     all_tpms = {}
     for cf in count_files:
-        if "_counts" not in cf:
+        print(cf)
+        if "_counts" not in os.path.basename(cf):
             continue
         tpm = normalize_counts_to_tpm_one_file(cf, gff_dir, feat, id_sym)
         #out_file = "{}_tpm.csv".format(os.path.basename(cf))
@@ -107,3 +108,114 @@ def normalize_counts_to_tpm(counts_dir, gff_dir, out_dir, feat='CDS', id_sym='ge
         prefix = os.path.basename(cf).split("_trimmed")[0] # this would be specific to my naming convention
         all_tpms[prefix] = tpm
     return all_tpms
+
+
+
+"""
+Plotting PCA elipses:
+
+__author__:
+
+"""
+
+def plot_point_cov(points, nstd=2, ax=None, **kwargs):
+    """
+    Plots an `nstd` sigma ellipse based on the mean and covariance of a point
+    "cloud" (points, an Nx2 array).
+
+    Parameters
+    ----------
+        points : An Nx2 array of the data points.
+        nstd : The radius of the ellipse in numbers of standard deviations.
+            Defaults to 2 standard deviations.
+        ax : The axis that the ellipse will be plotted on. Defaults to the
+            current axis.
+        Additional keyword arguments are pass on to the ellipse patch.
+
+    Returns
+    -------
+        A matplotlib ellipse artist
+    """
+    pos = points.mean(axis=0)
+    cov = np.cov(points, rowvar=False)
+    return plot_cov_ellipse(cov, pos, nstd, ax, **kwargs)
+
+
+def plot_cov_ellipse(cov, pos, nstd=2, ax=None, **kwargs):
+    """
+    Plots an `nstd` sigma error ellipse based on the specified covariance
+    matrix (`cov`). Additional keyword arguments are passed on to the
+    ellipse patch artist.
+
+    Parameters
+    ----------
+        cov : The 2x2 covariance matrix to base the ellipse on
+        pos : The location of the center of the ellipse. Expects a 2-element
+            sequence of [x0, y0].
+        nstd : The radius of the ellipse in numbers of standard deviations.
+            Defaults to 2 standard deviations.
+        ax : The axis that the ellipse will be plotted on. Defaults to the
+            current axis.
+        Additional keyword arguments are pass on to the ellipse patch.
+
+    Returns
+    -------
+        A matplotlib ellipse artist
+    """
+    def eigsorted(cov):
+        vals, vecs = np.linalg.eigh(cov)
+        order = vals.argsort()[::-1]
+        return vals[order], vecs[:,order]
+
+    if ax is None:
+        ax = plt.gca()
+
+    vals, vecs = eigsorted(cov)
+    theta = np.degrees(np.arctan2(*vecs[:,0][::-1]))
+
+    # Width and height are "full" widths, not radius
+    width, height = 2 * nstd * np.sqrt(vals)
+    ellip = Ellipse(xy=pos, width=width, height=height, angle=theta, **kwargs)
+
+    ax.add_artist(ellip)
+    return ellip
+
+
+def find_pc1_pc2(df, meta):
+    df = df.T
+    pca = PCA(n_components=2)
+    principalComponents = pca.fit_transform(df)
+    pDf = (pd.DataFrame(data=principalComponents, columns=['PC1', 'PC2'])
+           .set_index(df.index))
+    pc1_var = round(pca.explained_variance_ratio_[0] * 100, 2)
+    pc2_var = round(pca.explained_variance_ratio_[1] * 100, 2)
+    pDf2 = pDf.merge(meta, left_index=True, right_index=True)
+    return pDf2, pc1_var, pc2_var
+
+
+def plotPCA(pDf, pc1_var, pc2_var, colorby, col, nameby="", el=False):
+    sns.set_style("ticks")
+    sns.set_context("notebook", font_scale=2.2)
+    group = pDf[colorby].unique()
+    assert len(group) <= len(col)
+    fig = plt.figure(figsize=(8, 8))
+    for g, c in zip(group, col):
+        df = pDf[pDf[colorby] == g]
+        x, y = df[["PC1"]].values, df[["PC2"]].values
+        ax = plt.scatter(x, y, c=c, s=150, label=g)
+        if el:
+            pts = np.asarray([[float(a), float(b)] for a, b in zip(x, y)])
+            plot_point_cov(pts, nstd=2, alpha=0.1, color=c)
+        if nameby:
+            labels = df[nameby]
+            for label, pc1, pc2 in zip(labels, x, y):
+                plt.annotate(label, xy=(pc1, pc2), xytext=(-5, 7), textcoords="offset points",fontsize=14)
+        plt.xlabel('Principal Component 1, {} %'.format(pc1_var), )
+        plt.ylabel('Principal Component 2, {} %'.format(pc2_var), )
+        #plt.xticks(fontsize=16)
+        #plt.yticks(fontsize=16)
+        plt.legend(frameon=True)
+    return fig
+
+
+
