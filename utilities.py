@@ -1,7 +1,12 @@
 import configparser
+import matplotlib.pyplot as plt
+from matplotlib.patches import Ellipse
+import numpy as np
 import os
+import pandas as pd
 from scipy import stats
-
+import seaborn as sns
+from sklearn.decomposition import PCA
 
 cols = ["#0084ff", "#44bec7", "#ffc300", "#fa3c4c", "#d696bb"]
 
@@ -9,6 +14,7 @@ cols = ["#0084ff", "#44bec7", "#ffc300", "#fa3c4c", "#d696bb"]
 def process_config(config_file="config"):
 
     config = configparser.ConfigParser()
+    config.optionxform = lambda option: option
     config.read(config_file)
     config_dict = {}
     for section in config.sections():
@@ -96,7 +102,6 @@ def normalize_counts_to_tpm(counts_dir, gff_dir, out_dir, feat='CDS', id_sym='ge
     count_files = [os.path.join(counts_dir, f) for f in os.listdir(counts_dir)]
     all_tpms = {}
     for cf in count_files:
-        print(cf)
         if "_counts" not in os.path.basename(cf):
             continue
         tpm = normalize_counts_to_tpm_one_file(cf, gff_dir, feat, id_sym)
@@ -195,7 +200,7 @@ def find_pc1_pc2(df, meta):
 
 def plotPCA(pDf, pc1_var, pc2_var, colorby, col, nameby="", el=False):
     sns.set_style("ticks")
-    sns.set_context("notebook", font_scale=2.2)
+    sns.set_context("notebook", font_scale=2.0)
     group = pDf[colorby].unique()
     assert len(group) <= len(col)
     fig = plt.figure(figsize=(8, 8))
@@ -218,4 +223,12 @@ def plotPCA(pDf, pc1_var, pc2_var, colorby, col, nameby="", el=False):
     return fig
 
 
-
+def get_tpms_for_prokkas(pa_matrix, tpm_df):
+    df_list = []
+    for cl in tpm_df.columns:
+        strain = cl.split('_')[0]
+        d = tpm_df[cl].to_dict()
+        df = pd.DataFrame()
+        df[cl] = pa_matrix[strain].map(d)
+        df_list.append(df)
+    return pd.concat(df_list, axis=1)

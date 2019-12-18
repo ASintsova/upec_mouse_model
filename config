@@ -3,18 +3,22 @@ bin=/Users/annasintsova/git_repos/upec_mouse_model
 
 
 [data]
-gff_dir=/Users/annasintsova/git_repos/upec_mouse_model/private_data/gff_files
-gbf_dir=/Users/annasintsova/git_repos/upec_mouse_model/private_data/gbf_files
-mouse_counts_dir=/Users/annasintsova/git_repos/upec_mouse_model/data/mouse_counts
-patient_counts=/Users/annasintsova/git_repos/upec_mouse_model/data/patient_counts/raw
+gff_dir = private_data/gff_files
+gbf_dir = private_data/gbf_files
+HM43_dir = data/HM43_counts
+HM56_dir = data/HM56_counts
+HM86_dir = data/HM86_counts
+patient_counts = data/patient_counts/raw
+k12_genes = private_data/All_genes_of_E._coli_K-12.txt
 #pangenome=/Users/annasintsova/git_repos/upec_mouse_model/data/pangenome_analysis/pangenome_OMCL.csv
 
-pangenome=/Users/annasintsova/git_repos/upec_mouse_model/private_results/orhtolog_matrix.csv
+pangenome=private_results/orhtolog_matrix.csv
+
 ref_genomes=CFT073 536 K-12 UMN026 UTI89
 b1_strains = HM03 HM07 HM14
 b2_strains = HM56 HM43 HM54 HM86 HM06 HM68 HM57 HM66 HM17 HM60
-functional_groups_file = /Users/annasintsova/git_repos/upec_mouse_model/data/genes_and_functions_edited.csv
+functional_groups_file = data/genes_and_functions_edited.csv
 
-
-[test]
-bla=bla
+[results]
+results_dir = private_results
+figures_dir = figures
