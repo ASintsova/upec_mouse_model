@@ -23,6 +23,6 @@ Comparison of UPEC gene expression during human UTI to that during mouse UTI
 
 ## Discussion
 ## Figures
-
+## References
 
 
