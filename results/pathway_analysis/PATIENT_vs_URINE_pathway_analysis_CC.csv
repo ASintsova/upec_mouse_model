@@ -1,0 +1,6 @@
+"","GO.ID","Term","Annotated","Significant","Expected","elimFisher","Term","genesInTerm","DEGenesInTerm"
+"3","GO:0005948","acetolactate synthase complex",2,2,0.41,"0.042","acetolactate synthase complex","ilvB,ilvN","ilvB,ilvN"
+"4","GO:0005951","carbamoyl-phosphate synthase complex",2,2,0.41,"0.042","carbamoyl-phosphate synthase complex","carA,carB","carA,carB"
+"5","GO:0009321","alkyl hydroperoxide reductase complex",2,2,0.41,"0.042","alkyl hydroperoxide reductase complex","ahpC,ahpF","ahpC,ahpF"
+"6","GO:0009341","beta-galactosidase complex",2,2,0.41,"0.042","beta-galactosidase complex","ebgA,lacZ","ebgA,lacZ"
+"7","GO:0009344","nitrite reductase complex [NAD(P)H]",2,2,0.41,"0.042","nitrite reductase complex [NAD(P)H]","nirB,nirD","nirB,nirD"

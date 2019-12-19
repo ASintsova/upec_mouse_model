@@ -1,0 +1,41 @@
+﻿Genome,Gene_ID,Function,Name
+eco,b4151,Fermentation,Frd
+eco,b4152,Fermentation,Frd
+eco,b4153,Fermentation,Frd
+eco,b4154,Fermentation,Frd
+eco,b2296,Fermentation,AckA
+eco,b2297,Fermentation,pta
+eco,b1241,Fermentation,AdhE
+eco,b1474,Anaerobic Respiration,Fdn
+eco,b1475,Anaerobic Respiration,Nar
+eco,b1476,Anaerobic Respiration,Nar
+eco,b1223,Anaerobic Respiration,Nar
+eco,b1224,Anaerobic Respiration,Nar
+eco,b1225,Anaerobic Respiration,Nar
+eco,b1226,Anaerobic Respiration,Nar
+eco,b1227,Anaerobic Respiration,Nar
+eco,b0721,Aerobic Respiration,Sdh
+eco,b0722,Aerobic Respiration,Sdh
+eco,b0723,Aerobic Respiration,Sdh
+eco,b0724,Aerobic Respiration,Sdh
+eco,b1109,Aerobic Respiration,Sdh
+eco,b2276,Aerobic Respiration,Sdh
+eco,b2277,Aerobic Respiration,Sdh
+eco,b2278,Aerobic Respiration,Sdh
+eco,b2279,Aerobic Respiration,Sdh
+eco,b2280,Aerobic Respiration,Sdh
+eco,b2281,Aerobic Respiration,Sdh
+eco,b2282,Aerobic Respiration,Sdh
+eco,b2283,Aerobic Respiration,Sdh
+eco,b2284,Aerobic Respiration,Sdh
+eco,b2285,Aerobic Respiration,Sdh
+eco,b2286,Aerobic Respiration,Sdh
+eco,b2287,Aerobic Respiration,Sdh
+eco,b2288,Aerobic Respiration,Sdh
+eco,b0428,Aerobic Respiration,Cyo
+eco,b0429,Aerobic Respiration,Cyo
+eco,b0430,Aerobic Respiration,Cyo
+eco,b0431,Aerobic Respiration,Cyo
+eco,b0432,Aerobic Respiration,Cyo
+eco,b0733,Aerobic Respiration,Cyd
+eco,b0734,Aerobic Respiration,Cyd
